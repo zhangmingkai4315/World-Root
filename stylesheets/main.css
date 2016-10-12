@@ -1,0 +1,220 @@
+body{
+    margin: 0px;
+    background-color: #1b2b3e;
+}
+button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+#header{
+  background-color: rgba(70, 130, 180, 0.35);
+  padding: 2px 100px;
+  display: block;
+  z-index: 0;
+  position: absolute;
+  line-height: 0.75em;
+  left: -50px;
+  -webkit-transform: skew(-25deg);
+  -moz-transform:skew(-25deg);
+
+}
+#header_title{
+    float: left;
+    display: block;
+    font-size: 2em;
+    color: white;
+    -webkit-transform: skew(25deg);
+    -moz-transform:skew(25deg);
+}
+h1.s-title{
+     float:left;
+     margin-top:300px;
+}
+.arcs{
+    fill:rgba(38, 0, 249, 0.01);
+    stroke:rgba(38, 0, 249, 0.04);
+}
+.gpoint{
+  fill:rgb(73,188,255);
+}
+.country,.country_CNQPS{
+  fill:rgba(255, 255, 255, 0.1);
+  stroke-width: 0.3;
+  stroke: white;
+  stroke-linejoin: round;
+}
+.country:hover{
+  stroke: grey;
+  stroke-width: 1.5px;
+}
+.text{
+  font-size:15px;
+  color:white;
+  text-transform:capitalize;
+}
+
+/*Rect ping bar*/
+
+.rect_ping{
+  fill:rgba(255, 255, 255, 0.46);
+}
+.hidden {
+  display: none;
+}
+.axis {
+  shape-rendering: crispEdges;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke-width: .5px;
+}
+
+.x.axis path {
+  stroke: #fff;
+}
+.x.axis line {
+  stroke: brue;
+  stroke-opacity: .5;
+}
+.x.axis .tick text{
+  fill:white;
+}
+.y.axis line {
+  stroke: #ddd;
+}
+.y.axis .tick text{
+  fill:white;
+}
+
+path.line {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+div.tooltip {
+  color: #222;
+  background: #fff;
+  padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+  opacity: 0.9;
+  position: absolute;
+}
+.graticule {
+  fill: none;
+  stroke: #bbb;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+.arcs path {
+  stroke-width: 2px;
+  opacity: .9;
+  stroke: tomato;
+  pointer-events: none;
+  fill: none;
+}
+.arcs .great-arc-end{
+  fill: tomato;
+}
+.boundary {
+  stroke: grey;
+  stroke-width: .5px;
+}
+
+
+.province{
+  fill:white;
+  stroke:grey;
+  stroke-width: 1.5px;
+}
+.province:hover{
+  fill:rgb(195,233,255);
+  stroke-width: 2.5px;
+}
+.monitor_list:hover{
+  fill:white;
+}
+
+
+.axis path,
+.axis line {
+  fill: white;
+  stroke: white;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.mon_bar:hover{
+  orangered
+}
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.axis path, .axis line{
+        fill:none;
+        stroke:orange;
+        shape-rendering:"crispEdges";
+      }
+.axis text{
+  font-size:11px;
+}
+
+.root_ping_info{
+  border-radius: 5px 5px;
+  background-color: rgba(15, 26, 33, 0.6);
+  padding: 5px 5px;
+  color: cornsilk;
+  line-height: 0.6em
+}
+.root_ping_info p{
+  font-style: italic;
+  font-weight:200;
+}
+
+/*Ping panel*/
+
+.display_ping_data{
+  fill:rgba(128, 129, 132, 0.34);
+  rx: 15px;
+  ry: 15px;
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+}
