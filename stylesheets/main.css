@@ -245,13 +245,7 @@ div.tooltip {
 .info{
   color:aquamarine;
 }
-/*.smartmarquee {
-  position: relative;
-  overflow: hidden;
+/*Zoom Map*/
+.active {
+  fill: rgba(255, 0, 0, 0.24);
 }
-
-.smartmarquee .container {
-  position: absolute;
-}
-
-*/

@@ -254,5 +254,8 @@ export default StyleSheet.create({
     },
     "info": {
         "color": "aquamarine"
+    },
+    "active": {
+        "fill": "rgba(255, 0, 0, 0.24)"
     }
 });
