@@ -13,7 +13,28 @@ var root_pingdata=[
   {"title":"L根","subtitle":"美国ICANN","ping":1.2,tag:'L',distination:'pek01.l.root-servers.org',number:32},
   {"title":"M根","subtitle":"日本WIDE Project","ping":61,tag:'M',distination:'M-NRT-JPNAP-1',number:0},
 ]
+$(document).ready(function () {
 
+  for(var i=0;i<root_pingdata.length;i++){
+    if(root_pingdata[i]['ping']>300){
+      $(".list-aggregate").append('<li class="error">'+
+      root_pingdata[i]['title']+':'+
+      root_pingdata[i]['subtitle']+' 响应时间 '+
+      root_pingdata[i]['ping']+'ms </li>')
+    }else if(root_pingdata[i]['ping']<10){
+      $(".list-aggregate").append('<li class="info">'+
+      root_pingdata[i]['title']+':'+
+      root_pingdata[i]['subtitle']+' 响应时间 '+
+      root_pingdata[i]['ping']+'ms </li>')
+    }else{
+      $(".list-aggregate").append('<li class="normal">'+
+      root_pingdata[i]['title']+':'+
+      root_pingdata[i]['subtitle']+' 响应时间 '+
+      root_pingdata[i]['ping']+'ms </li>')
+    }
+  }
+  $('#marquee-vertical').marquee();
+});
 
 d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
   var topo,projection,path,svg,g;
@@ -133,91 +154,9 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
        .style({"position":"absolute","top":"0px"});
     var panel_height=height/4;
     var panel_width=width/4
-     svg.append("g").attr("class","show_panel").append('rect')
-     .classed("display_ping_data",true)
-     .attr({"x":width/40,"y":height/1.5,"height":panel_height,'width':panel_width});
-
-     var barwidth=(panel_height)/root_pingdata.length;
-     var yScale=d3.scale.ordinal().domain(d3.range(root_pingdata.length)).rangeRoundBands([0,panel_height],0.05);
-     svg.selectAll('.panel_ping_rect_bar').data(root_pingdata).enter().append('rect')
-     .classed("panel_ping_rect_bar",true)
-     .attr({
-         x:function (d,i) {
-            return width/40;
-         },
-         y:function (d,i) {
-         return height/1.5+yScale(i);
-         },
-         width:function (d,i) {
-           return panel_width-20;
-         },
-         height:function (d,i) {
-           return yScale.rangeBand();
-         },
-        fill:function (d,i) {
-           return 'none';
-         }
-     });
-
-     svg.selectAll('.panel_ping_rect_text').data(root_pingdata).enter().append('text')
-      .classed("panel_ping_rect_text",true)
-      .text(function (d) {
-        return d.subtitle;
-      }).attr({
-        x:function (d,i) {
-          return width/40+15;
-          return xScale(i)+xScale.rangeBand()/2;
-        },
-        y:function (d,i) {
-          return height/1.5+yScale(i)+yScale.rangeBand()/2
-        }
-      }).style({
-           "fill":"rgba(194, 211, 218, 0.9)",
-           "float":"left",
-           "font-size":"0.7em"
-      });
-
-      // function redraw(){
-      //   var
-      // }
-
-
-
-
-
-
-
-
-
-    //  svg.select(".show_panel").selectAll('.root_ping_describe')
-    //  .data(root_pingdata)
-    //  .enter()
-    //  .append('text')
-    //  .classed("root_ping_describe",true)
-    //  .attr('x',function(d,i){
-    //    return width/40+15;
-    //  })
-    //  .attr('y',function(d,i){
-    //    return height/1.5+i*16+25;
-    //  }).style({
-    //    "fill":"rgba(194, 211, 218, 0.9)",
-    //    "float":"left",
-    //    "font-size":"0.6em"
-    //  }).text(function(d){
-    //   return d.subtitle;
-    //  });
-
-    //  function _rollbar(){
-    //     svg.selectAll('.root_ping_describe')
-    //     .transition()
-    //     .duration(500)
-    //     .attr("transform", function(d,i){
-    //        return  "translate(0,-16)";
-    //     })
-    //     setTimeout(_rollbar,2000);
-    //  }
-     //
-    //  var roll_t=setTimeout(_rollbar,1000);
+    //  svg.append("g").attr("class","show_panel").append('rect')
+    //  .classed("display_ping_data",true)
+    //  .attr({"x":width/40,"y":height/1.5,"height":panel_height,'width':panel_width});
 
      svg.append("g").attr("class","root_server_ping").selectAll('.root_ping')
          .data(root_pingdata)
@@ -230,6 +169,17 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
          .attr("height",function(d,i){
            return y(d.ping)
          })
+         .attr(
+           'fill',function(d,i){
+            if(d.ping>300){
+              return 'rgba(255, 0, 0, 0.43)';
+            }else if(d.ping<10){
+              return 'rgba(127, 255, 212, 0.5)'
+            }else{
+              return 'rgba(255, 255, 255, 0.46)';
+            }
+          }
+         )
          .attr({
            rx:2,
            ry:2,
@@ -251,6 +201,22 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
                 return tooltip.style("top", "0px").style("left","0px");
           });
 
+    setInterval(function(){
+      var y = d3.scale.linear()
+        .domain([0,d3.max(ping_array)])
+        .range([10,200]);
 
-
+      svg.selectAll('.rect_ping')
+          .data(root_pingdata)
+          .transition()
+          .duration(1000)
+          .delay(Math.random()*2000)
+          .attr("height", function(d) {
+            var random_value=5*Math.random()*((Math.random()>0.5)?-1:1);
+            d.random_value=random_value;
+            return (y(d.ping)+random_value)>0?(y(d.ping)+random_value):1;
+          }).attr("transform", function(d,i){
+            return  "translate(0,"+(-d.random_value-y(d.ping))+")";
+          });
+    },2000)
 }
