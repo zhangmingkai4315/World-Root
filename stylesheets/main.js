@@ -13,10 +13,41 @@ export default StyleSheet.create({
         "marginLeft": 0,
         "backgroundColor": "#1b2b3e"
     },
+    "panel_button_group": {
+        "float": "right",
+        "paddingTop": 1,
+        "paddingRight": 1,
+        "paddingBottom": 1,
+        "paddingLeft": 1
+    },
     "button": {
-        "position": "absolute",
-        "right": 10,
-        "top": 10
+        "background": "rgba(255, 255, 255, 0.18)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": 5,
+        "fontSize": "120%",
+        "paddingTop": 0.5,
+        "paddingRight": 2,
+        "paddingBottom": 0.5,
+        "paddingLeft": 2,
+        "border": "none rgba(0, 0, 0, 0)",
+        "display": "inline-block",
+        "zoom": 1,
+        "lineHeight": "normal",
+        "whiteSpace": "nowrap",
+        "verticalAlign": "middle",
+        "textAlign": "center",
+        "cursor": "pointer",
+        "WebkitUserDrag": "none",
+        "WebkitUserSelect": "none",
+        "MozUserSelect": "none",
+        "MsUserSelect": "none",
+        "userSelect": "none",
+        "WebkitBoxSizing": "border-box",
+        "MozBoxSizing": "border-box",
+        "boxSizing": "border-box"
+    },
+    "button:hover": {
+        "background": "rgba(255, 255, 255, 0.58)"
     },
     "header": {
         "backgroundColor": "rgba(70, 130, 180, 0.35)",
@@ -57,15 +88,9 @@ export default StyleSheet.create({
         "stroke": "white",
         "strokeLinejoin": "round"
     },
-    "country_CNQPS": {
-        "fill": "rgba(255, 255, 255, 0.1)",
-        "strokeWidth": 0.3,
-        "stroke": "white",
-        "strokeLinejoin": "round"
-    },
     "country:hover": {
-        "stroke": "grey",
-        "strokeWidth": 1.5
+        "fill": "rgb(195,233,255)",
+        "strokeWidth": 0.1
     },
     "text": {
         "fontSize": 15,
@@ -146,7 +171,7 @@ export default StyleSheet.create({
         "strokeWidth": 0.5
     },
     "province": {
-        "fill": "white",
+        "fill": "rgba(255, 255, 255, 0.1)",
         "stroke": "grey",
         "strokeWidth": 1.5
     },
@@ -201,7 +226,7 @@ export default StyleSheet.create({
     },
     "root_ping_info": {
         "borderRadius": "5px 5px",
-        "backgroundColor": "rgba(15, 26, 33, 0.6)",
+        "backgroundColor": "rgba(15, 26, 33, 0.8)",
         "paddingTop": 5,
         "paddingRight": 5,
         "paddingBottom": 5,
@@ -221,6 +246,40 @@ export default StyleSheet.create({
         "left": 30,
         "backgroundColor": "rgba(128, 129, 132, 0.34)",
         "boxShadow": "0px 0px 2px 0px #a6a6a6"
+    },
+    "china_map_panel_0": {
+        "position": "absolute",
+        "height": 200,
+        "width": 320,
+        "top": 480,
+        "left": 30,
+        "backgroundColor": "rgba(128, 129, 132, 0.34)",
+        "fontSize": 10,
+        "boxShadow": "0px 0px 2px 0px #a6a6a6",
+        "color": "rgba(255, 255, 255, 0.37)"
+    },
+    "label": {
+        "display": "inline",
+        "paddingTop": 0.2,
+        "paddingRight": 0.6,
+        "paddingBottom": 0.3,
+        "paddingLeft": 0.6,
+        "fontSize": "75%",
+        "fontWeight": "700",
+        "lineHeight": 1,
+        "color": "#fff",
+        "textAlign": "center",
+        "whiteSpace": "nowrap",
+        "verticalAlign": "baseline",
+        "borderRadius": 0.25
+    },
+    "info_title": {
+        "color": "rgba(255, 255, 255, 0.9)",
+        "fontSize": 1.6
+    },
+    "info_normal": {
+        "color": "rgba(255, 255, 255, 0.8)",
+        "fontSize": 1
     },
     "list-wrpaaer": {
         "height": 200,

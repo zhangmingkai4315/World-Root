@@ -14,6 +14,7 @@ var root_pingdata=[
   {"title":"L根","subtitle":"美国ICANN","ping":1.2,tag:'L',distination:'pek01.l.root-servers.org',number:32},
   {"title":"M根","subtitle":"日本WIDE Project","ping":61,tag:'M',distination:'M-NRT-JPNAP-1',number:0},
 ]
+d3.helper.china_root_servers=[];
 
 
 
@@ -37,13 +38,32 @@ $(document).ready(function () {
       root_pingdata[i]['ping']+'ms </li>')
     }
   }
-  $('#marquee-vertical').marquee();
+  $('#marquee-vertical').marquee({
+    css3easing:'ease-in',
+    // speed:'1000',
+    duplicated: true
+  });
+
 });
+// global svg
 
 d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
+
   var topo,projection,path,svg,g;
   var rootServerList={};
   var centered;
+  d3.helper.servers=servers;
+  if(d3.helper.china_root_servers.length===0){
+    servers.map(function(i){
+      if(i.data.location.indexOf(', CN')!==-1||
+         i.data.location.indexOf(', TW')!==-1||
+         i.data.location.indexOf(', HK')!==-1){
+         d3.helper.china_root_servers.push(i);
+
+      }
+   });
+  }
+
   // var tooltip = d3.select("#"+id).append("div").attr("class", "tooltip hidden");
   var width =window.innerWidth-20, height =window.innerHeight-60;
   var projection = d3.geo.equirectangular()
@@ -51,13 +71,12 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
     .scale( width / 1.8/ Math.PI);
   d3.helper.projection=projection;
   path = d3.geo.path().projection(projection);
-  svg = d3.select("#"+id).append("svg")
+  d3.helper.world_svg= world_svg = d3.select("#"+id).append("svg")
       .attr("width", width)
       .attr("height", height)
       // .style("background-color","rgb(12,51,94)")
-      .append("g")
-      // .on("click", clicked);
-  d3.helper.g = g = svg.append("g");
+      .append("g");
+  d3.helper.g = g = world_svg.append("g");
   function clicked(d) {
     // console.log(d)
     var x, y, k;
@@ -75,13 +94,13 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
       centered = null;
     }
     // console.log(svg.selectAll("path"))
-    svg.selectAll("path")
+    world_svg.selectAll("path")
         .classed("active", centered && function(d) {
           console.log(centered&&(d === centered));
           return d === centered;
         });
 
-    svg.transition()
+    world_svg.transition()
         .duration(750)
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
         .style("stroke-width", 1.5 / k + "px");
@@ -109,9 +128,11 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
     if(typeof rootServerList[i.data.rootserver]=="undefined"){
       rootServerList[i.data.rootserver]=color;
     }
-       i.color=color;
-   　　　d3.helper.addpoint(i.latLng[1], i.latLng[0],color,true);
+    i.color=color;
+    d3.helper.addpoint(i.latLng[1], i.latLng[0],color,true);
   });
+  d3.helper.rootServerColor=rootServerList;
+
   var keyList=_.keys(rootServerList);
   var rootList=[]
   for(var key=0;key<keyList.length;key++){
@@ -120,7 +141,9 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
   }
   rootList=_.sortBy(rootList, function(o) { return o.name; });
   // var drawList=function(svg,data){
-  svg.append("g").attr("class","root_server").selectAll('.rootlist')
+  var root_info_zone = world_svg.append("g").attr("class","root_server_zone")
+
+  root_info_zone.selectAll('.rootlist')
        .data(rootList)
        .enter()
        .append('circle')
@@ -142,11 +165,8 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
              servers.map(function(i){
               // debugger
               if(i.data.rootserver==d.name){
-                selectedRoot.push(i)
+                d3.helper.addpoint(i.latLng[1], i.latLng[0],i.color,true);
               }
-            });
-            selectedRoot.map(function(i){
-               d3.helper.addpoint(i.latLng[1], i.latLng[0],i.color,true);
             });
        }).on("dblclick",function(d){
             d3.selectAll(".rootpoint").remove();
@@ -154,7 +174,7 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
                d3.helper.addpoint(i.latLng[1], i.latLng[0],i.color,true);
             });
        });
-     svg.append("g").attr("class","root_server_name").selectAll('.rootServerName')
+     root_info_zone.append("g").attr("class","root_server_name").selectAll('.rootServerName')
        .data(rootList)
        .enter()
        .append('text')
@@ -185,14 +205,10 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
      var tooltip = d3.select("body")
        .append("div")
        .classed("root_ping_info",true)
-       .style({"position":"absolute","top":"0px"});
+       .style({"position":"absolute","top":"0px","visibility":"hidden"});
     var panel_height=height/4;
-    var panel_width=width/4
-    //  svg.append("g").attr("class","show_panel").append('rect')
-    //  .classed("display_ping_data",true)
-    //  .attr({"x":width/40,"y":height/1.5,"height":panel_height,'width':panel_width});
-
-     svg.append("g").attr("class","root_server_ping").selectAll('.root_ping')
+    var panel_width=width/4;
+     root_info_zone.append("g").attr("class","root_server_ping").selectAll('.root_ping')
          .data(root_pingdata)
          .enter()
          .append('rect')
@@ -228,11 +244,11 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
 
          })
            .on("mousemove", function(){
-              return tooltip.style("top", (event.pageY-5)+"px").style("left",(event.pageX+2)+"px");
+              return tooltip.style({"top":((event.pageY-5)+"px"),"left":((event.pageX+2)+"px")});
          })
            .on("mouseout", function(){
                 tooltip.text("");
-                return tooltip.style("top", "0px").style("left","0px");
+                return tooltip.style({"top":"0px","left":"0px","visibility":"hidden"});
           });
 
     setInterval(function(){
@@ -240,7 +256,7 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
         .domain([0,d3.max(ping_array)])
         .range([10,200]);
 
-      svg.selectAll('.rect_ping')
+      world_svg.selectAll('.rect_ping')
           .data(root_pingdata)
           .transition()
           .duration(1000)
@@ -253,6 +269,31 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
             return  "translate(0,"+(-d.random_value-y(d.ping))+")";
           });
     },2000)
+}
+
+d3.helper.printChinaMonMap=function(map_data,id,width,height){
+  var topo,projection,path,svg,g;
+  var width =window.innerWidth-20, height =window.innerHeight-60;
+  var china_projection = d3.geo.mercator()
+    .translate([-(width/1.7), (height/0.82)])
+    .scale( width / 0.52/ Math.PI);
+  d3.helper.china_projection=china_projection;
+  path = d3.geo.path().projection(china_projection);
+  china_svg = d3.select('svg')
+      .append("g").attr("transform", "scale(0.1)");;
+  d3.helper.china_svg  = china_svg
+  var provinces = topojson.feature(map_data, map_data.objects.china).features;
+  var provinces = china_svg.selectAll(".province").data(provinces);
+  provinces.enter().insert("path")
+      .attr("class", "province")
+      .attr("d", path)
+      .attr("id", function(d,i) { return d.id; })
+      .attr("title", function(d,i) { return d.properties.name; })
+      .style({
+        "stroke":"white",
+        "stroke-width":"0.5px",
+      });
+
 }
 
 },{}]},{},[1])

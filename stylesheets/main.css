@@ -2,11 +2,38 @@ body{
     margin: 0px;
     background-color: #1b2b3e;
 }
-button {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+#panel_button_group{
+  float: right;
+  padding: 1em 1em 1em 1em;
 }
+button {
+    background: rgba(255, 255, 255, 0.18);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    font-size: 120%;
+    padding: 0.5em 2em;
+    border: none rgba(0, 0, 0, 0);
+    display: inline-block;
+    zoom: 1;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+button:hover{
+      background: rgba(255, 255, 255, 0.58);
+}
+
+
 #header{
   background-color: rgba(70, 130, 180, 0.35);
   padding: 2px 100px;
@@ -38,15 +65,15 @@ h1.s-title{
 .gpoint{
   fill:rgb(73,188,255);
 }
-.country,.country_CNQPS{
+.country{
   fill:rgba(255, 255, 255, 0.1);
   stroke-width: 0.3;
   stroke: white;
   stroke-linejoin: round;
 }
 .country:hover{
-  stroke: grey;
-  stroke-width: 1.5px;
+  fill: rgb(195,233,255);
+  stroke-width: 0.1px;
 }
 .text{
   font-size:15px;
@@ -125,7 +152,7 @@ div.tooltip {
 
 
 .province{
-  fill:white;
+  fill:rgba(255, 255, 255, 0.1);
   stroke:grey;
   stroke-width: 1.5px;
 }
@@ -188,7 +215,6 @@ div.tooltip {
   top: 100%;
   left: 0;
 }
-
 .axis path, .axis line{
         fill:none;
         stroke:orange;
@@ -200,7 +226,7 @@ div.tooltip {
 
 .root_ping_info{
   border-radius: 5px 5px;
-  background-color: rgba(15, 26, 33, 0.6);
+  background-color: rgba(15, 26, 33, 0.8);
   padding: 5px 5px;
   color: cornsilk;
   line-height: 0.6em
@@ -221,6 +247,39 @@ div.tooltip {
   background-color: rgba(128, 129, 132, 0.34);
   /*border-radius: 15px;*/
   box-shadow: 0px 0px 2px 0px #a6a6a6;
+}
+#china_map_panel_0{
+  position: absolute;
+  height: 200px;
+  width: 320px;
+  top:480px;
+  left:30px;
+  background-color: rgba(128, 129, 132, 0.34);
+  /*border-radius: 15px;*/
+  font-size: 10px;
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+  color:rgba(255, 255, 255, 0.37);
+}
+
+.label{
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+.info_title{
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.6em;
+}
+.info_normal{
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1em;
 }
 
 .list-wrpaaer{

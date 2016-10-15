@@ -15,11 +15,19 @@
         <div id="header">
             <h2 id="header_title">全球根镜像展示</h2>
         </div>
+        <div id="panel_button_group">
+        <div>
+            <button onclick="SelectWorldButton()">World</button>
+            <button onclick="SelectChinaButton()">China</button>
+        </div>
+        </div>
         <div id="panel_ping_result">
           <div class="list-wrpaaer">
              <ul class="list-aggregate" id="marquee-vertical">
              </ul>
           </div>
+        </div>
+        <div id="china_map_panel_0" class="hidden">
         </div>
         <div id="panel_show_something">
 
@@ -35,17 +43,16 @@
         queue()
             .defer(d3.json, '/data/world-topo.json')
             .defer(d3.json, '/data/root-name-servers.json')
-            .await(function(err,world_map_data,root_data){
-                if(!d3.helper.servers){
-                    d3.helper.servers=root_data;
-                }
+            .defer(d3.json,'/data/china.topo.json')
+            .await(function(err,world_map_data,root_data,china_map_data){
                 if(err) console.log(err);
                 d3.helper.printRootServerWorldMap(world_map_data,'RootServerMap',root_data);
+                d3.helper.printChinaMonMap(china_map_data,'RootServerMap')
                 window.addEventListener('resize', resize);
                 function resize(){
                         d3.selectAll('svg').remove()
                         d3.helper.printRootServerWorldMap(world_map_data,'RootServerMap',root_data,window.innerWidth,window.innerHeight);
-                        d3.helper.draw_ping_bar()
+                        d3.helper.printChinaMonMap(china_map_data,'RootServerMap',window.innerWidth,window.innerHeight)
                 }
         });
     </script>
