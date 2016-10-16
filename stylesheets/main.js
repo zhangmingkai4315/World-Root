@@ -259,6 +259,7 @@ export default StyleSheet.create({
         "color": "rgba(255, 255, 255, 0.37)"
     },
     "label": {
+        "marginLeft": 0.3,
         "display": "inline",
         "paddingTop": 0.2,
         "paddingRight": 0.6,
@@ -275,11 +276,14 @@ export default StyleSheet.create({
     },
     "info_title": {
         "color": "rgba(255, 255, 255, 0.9)",
-        "fontSize": 1.6
+        "fontSize": 1.6,
+        "paddingLeft": 1
     },
     "info_normal": {
         "color": "rgba(255, 255, 255, 0.8)",
-        "fontSize": 1
+        "fontSize": 1,
+        "paddingLeft": 1,
+        "paddingRight": 0.7
     },
     "list-wrpaaer": {
         "height": 200,

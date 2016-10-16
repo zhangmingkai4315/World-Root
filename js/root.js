@@ -43,6 +43,7 @@ $(document).ready(function () {
     duplicated: true
   });
 
+  $('#panel_ping_result').addClass("animated fadeInLeft")
 });
 // global svg
 
@@ -250,24 +251,24 @@ d3.helper.printRootServerWorldMap=function(world,id,servers,width,height){
                 return tooltip.style({"top":"0px","left":"0px","visibility":"hidden"});
           });
 
-    setInterval(function(){
-      var y = d3.scale.linear()
-        .domain([0,d3.max(ping_array)])
-        .range([10,200]);
-
-      world_svg.selectAll('.rect_ping')
-          .data(root_pingdata)
-          .transition()
-          .duration(1000)
-          .delay(Math.random()*2000)
-          .attr("height", function(d) {
-            var random_value=5*Math.random()*((Math.random()>0.5)?-1:1);
-            d.random_value=random_value;
-            return (y(d.ping)+random_value)>0?(y(d.ping)+random_value):1;
-          }).attr("transform", function(d,i){
-            return  "translate(0,"+(-d.random_value-y(d.ping))+")";
-          });
-    },2000)
+    // setInterval(function(){
+    //   var y = d3.scale.linear()
+    //     .domain([0,d3.max(ping_array)])
+    //     .range([10,200]);
+    //
+    //   world_svg.selectAll('.rect_ping')
+    //       .data(root_pingdata)
+    //       .transition()
+    //       .duration(1000)
+    //       .delay(Math.random()*2000)
+    //       .attr("height", function(d) {
+    //         var random_value=5*Math.random()*((Math.random()>0.5)?-1:1);
+    //         d.random_value=random_value;
+    //         return (y(d.ping)+random_value)>0?(y(d.ping)+random_value):1;
+    //       }).attr("transform", function(d,i){
+    //         return  "translate(0,"+(-d.random_value-y(d.ping))+")";
+    //       });
+    // },2000)
 }
 
 d3.helper.printChinaMonMap=function(map_data,id,width,height){

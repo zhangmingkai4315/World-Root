@@ -184,7 +184,8 @@ d3.helper.lngLatToArc=function(projection,sourceLatLnt, targetLatLnt, bend){
 }
 }
 function addChinaRootInfo(){
-  d3.select('#china_map_panel_0').classed('hidden',false);
+  $('#china_map_panel_0').removeClass('hidden');
+  $('#china_map_panel_0').addClass('animated fadeInLeft');
   var china_roots=d3.helper.china_root_servers;
   var mainland_roots=china_roots.filter(function(i){return (i.data.location.indexOf(', CN')!==-1)});
   var hk_roots=china_roots.filter(function(i){return (i.data.location.indexOf(', HK')!==-1)});
@@ -198,14 +199,14 @@ function addChinaRootInfo(){
   var tw_roots_label=tw_roots.map(function(i){
       return '<span class="label" style="background-color:'+i.color+'">'+i.data.rootserver+'根</span>';
     }).join(' ');
-  var html='<h3 class="info_title"><span class="normal">当前中国根镜像数据</h3><p class="info_normal">总计根镜像: </span><span class="info">'+china_roots.length+' 个</span></p>'+
+  var html='<h3 class="info_title"><span class="normal">当前中国根镜像数据</h3><hr/><p class="info_normal">总计根镜像: </span><span class="info">'+china_roots.length+' 个</span></p>'+
         '<p><span class="info_normal">大陆地区: </span><span class="info"> '+mainland_roots.length+' 个'+' '+mainland_roots_label+'</p>'+
         '<p><span class="info_normal">香港地区: </span><span class="info"> '+hk_roots.length+' 个'+' '+hk_roots_label+'</p>'+
         '<p><span class="info_normal">台湾地区: </span><span class="info"> '+tw_roots.length+' 个'+' '+tw_roots_label+'</p>';
   d3.select('#china_map_panel_0').html(html);
 }
 function hiddenChinaRootInfo(){
-  d3.select('#china_map_panel_0').classed('hidden',true);
+  $('#china_map_panel_0').addClass('hidden');
 }
 
 
